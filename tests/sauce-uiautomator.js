@@ -1,8 +1,9 @@
 var wd = require('wd'),
+    path = require('path'),
     assert = require('assert'),
     colors = require('colors');
 
-var config = require('./fil-stew-creds.json');
+var config = require(path.join(__dirname, '../creds/mike-stew-creds.json'));
 
 var USER = config.USER;
 var PORT = config.PORT;
@@ -22,26 +23,25 @@ module.exports = function(port, cb) {
   });
 
   browser.on('command', function(meth, path, data) {
-    console.log(' > ' + meth.yellow, path.grey, data || '');
+    console.log(' > ' + meth.yellow, path.white, data || '');
   });
 
   browser.init({
-    name:'Contact Manager Native Application Test on S4 Device',
-    device:'Samsung Galaxy S4 Device',
-    app:'http://saucelabs.com/example_files/ContactManager.apk',
-    "app-activity": ".ContactManager",
-    "app-package": "com.example.android.contactmanager",
+    name: 'Contact Manager Native Application Test on Emulator',
+    app: 'http://saucelabs.com/example_files/ContactManager.apk',
+    platformName: "Android",
+    platformVersion: "5.0",
+    appiumVersion: "1.2.2",
+    deviceName: "Android Emulator",
     username:USER,
-    accessKey:KEY,
-    platform: 'Linux',
-    version: '4.4'
+    accessKey:KEY
   }, function(err) {
     if (err) console.error('init err!', err);
     else browser.elementByName('Add Contact', function(err, el) {
       if (err) console.error('get add contact', err);
       else el.click(function(err) {
         if (err) console.error('click add contact', err);
-        else browser.elementsByTagName('textfield', function(err, fields) {
+        else browser.elementsByClassName('android.widget.EditText', function(err, fields) {
           if (err) console.error('get textfields', err);
           else fields[0].type('My Name', function(err) {
             if (err) console.error('type into fields[0]', err);
@@ -55,7 +55,7 @@ module.exports = function(port, cb) {
                     if (err) console.error('get text fields[2]', err);
                     else {
                       assert.equal(text, 'someone@somewhere.com');
-                      browser.quit() 
+                      browser.quit();
                       if (cb) cb();
                     }
                   });

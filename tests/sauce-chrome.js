@@ -1,8 +1,9 @@
 var wd = require('wd')
+  , path = require('path')
   , assert = require('assert')
   , colors = require('colors');
 
-var config = require('./fil-stew-creds.json');
+var config = require(path.join(__dirname, '../creds/mike-stew-creds.json'));
 
 var USER = config.USER;
 var PORT = config.PORT;
@@ -22,30 +23,29 @@ module.exports = function(port, cb) {
   });
 
   browser.on('command', function(meth, path, data) {
-    console.log(' > ' + meth.yellow, path.grey, data || '');
+    console.log(' > ' + meth.yellow, path.white, data || '');
   });
 
   /*
   * This test loads up Fil's homepage, checks that the title matches
-  * some standard expectation, clicks on a link labeled "CV" and 
+  * some standard expectation, clicks on a link labeled "CV" and
   * expects that the address bar contains "cv.html".
   */
-
   var error = function(msg, err) {
       console.error(msg, err);
       browser.quit();
   }
 
   browser.init({
-      name:'Chrome-For-Android Test on a REAL Samsung S4',
-      browserName: 'Chrome',
-      deviceName: 'Samsung Galaxy S4 Device',
-      platformName: 'Android',
-      platformVersion: '4.4',
-      'appium-version':'1.2.2'
+      name:'Sauce Chrome Test',
+      browserName:'Android',
+      platform:'Linux',
+      username:USER,
+      accessKey:KEY,
+      version: '4.3',
   }, function(err) {
     if (err) error('error initing', err);
-    else browser.get("http://filmaj.ca", function(err) {
+    else browser.get("http://www.filmaj.ca", function(err) {
       if (err) error('error getting url', err);
       else browser.title(function(err, title) {
         if(err) error('error getting title', err);
