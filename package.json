@@ -1,11 +1,12 @@
 {
   "name": "appium-test",
   "version": "0.0.1",
-  "repository": "https://github.com/filmaj/appium-test",
+  "repository": "https://github.com/mhan/appium-test",
   "dependencies": {
     "chai": "^1.9.2",
     "chai-as-promised": "^4.1.1",
     "wd": "^0.3.9",
-    "colors": "^1.0.3"
+    "colors": "^1.0.3",
+    "saucelabs": "^0.1.1"
   }
 }
