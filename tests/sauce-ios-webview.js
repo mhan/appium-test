@@ -1,8 +1,9 @@
 var wd = require('wd')
+  , path = require('path')
   , assert = require('assert')
   , colors = require('colors');
 
-var config = require('./mike-saucelabs-creds.json');
+var config = require(path.join(__dirname, '../creds/mike-stew-creds.json'));
 
 var USER = config.USER;
 var PORT = config.PORT;
@@ -25,13 +26,17 @@ module.exports = function(port, cb) {
     console.log(' > ' + meth.yellow, path.grey, data || '');
   });
 
+  var error = function(msg, err) {
+      console.error(msg, err);
+      browser.quit();
+  }
+
   var caps = {
     name: 'appium-test/tests/sauce-ios-webview',
     browserName: 'Safari',
-    platformVersion: '7.1',
-    'appium-version': '1.0',
+    platformVersion: '8.1',
     platformName: 'iOS',
-    deviceName: 'iPad Simulator'
+    deviceName: 'iPhone Simulator',
   };
   browser.init(caps,
   function(err) {
