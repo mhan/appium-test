@@ -37,12 +37,13 @@ module.exports = function(port, cb) {
   }
 
   browser.init({
-      name:'Sauce Chrome Test',
-      browserName:'Android',
-      platform:'Linux',
-      username:USER,
-      accessKey:KEY,
-      version: '4.3',
+      name:'sauce-chrome',
+      browserName:'Chrome',
+      deviceName: 'Samsung Galaxy S4 Device',
+      platformName: 'Android',
+      'appium-version': '1.3.3',
+      'device-orientation': 'portrait',
+      platformVersion: '4.4'
   }, function(err) {
     if (err) error('error initing', err);
     else browser.get("http://www.filmaj.ca", function(err) {

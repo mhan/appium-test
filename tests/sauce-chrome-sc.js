@@ -1,8 +1,9 @@
 var wd = require('wd')
+  , path = require('path')
   , assert = require('assert')
   , colors = require('colors');
 
-var config = require('./fil-stew-creds.json');
+var config = require(path.join(__dirname, '../creds/mike-stew-creds.json'));
 
 var USER = config.USER;
 var PORT = config.PORT;
@@ -31,7 +32,7 @@ module.exports = function(port, cb) {
   }
 
   browser.init({
-      name:'Chrome-For-Android Test over SC on a REAL Samsung S4',
+      name:'sauce-chrome-sc',
       browserName: 'Chrome',
       deviceName: 'Samsung Galaxy S4 Device',
       platformName: 'Android',

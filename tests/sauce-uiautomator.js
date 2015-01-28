@@ -27,12 +27,12 @@ module.exports = function(port, cb) {
   });
 
   browser.init({
-    name: 'Contact Manager Native Application Test on Emulator',
+    name: 'Contact Manager Native Application Test on Device',
     app: 'http://saucelabs.com/example_files/ContactManager.apk',
     platformName: "Android",
-    platformVersion: "5.0",
+    platformVersion: "4.4",
     appiumVersion: "1.2.2",
-    deviceName: "Android Emulator",
+    deviceName: "Samsung Galaxy S4 Device",
     username:USER,
     accessKey:KEY
   }, function(err) {
