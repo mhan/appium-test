@@ -15,25 +15,18 @@ module.exports = function(port, cb) {
 
   browser.init({
     deviceName:'iPhone Simulator',
+    platformVersion: '8.1',
+    browserName: 'Safari',
     name:'ios webview',
     platformName:'iOS',
-    app: '/Users/filmaj/src/hybrid/platforms/ios/build/HelloCordova.app',
-    autoWebview:true,
-    implicitWaitMs: 500
-  }, function() {
-    browser.windowHandles(function(err, handles) {
-        if (err) console.error(err) && browser.quit();
-        else browser.window(handles[0], function(err) {
-            if (err) console.error(err) && browser.quit();
-            else {
-                browser.elementById('deviceready', function(err, el) {
-                    if (err) console.error(err) && browser.quit();
-                    else {
-                        browser.quit();
-                    }
-                });
-            }
-        });
+  }, function(err) {
+    if (err) error('error initing', err);
+    else browser.get("http://michaelhan.ca", function(err) {
+      if (err) error('error getting url', err);
+      else browser.title(function(err, title) {
+        if (err) error('error getting title', err);
+        else browser.quit();
+      });
     });
   });
 }
